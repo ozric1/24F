@@ -403,7 +403,6 @@ function initWhatsAppBrief() {
     const service = data.get('service')?.toString() || 'Production vidéo';
     const location = data.get('location')?.toString() || 'Maroc';
     const timeline = data.get('timeline')?.toString() || 'À convenir';
-    const budget = data.get('budget')?.toString() || 'À discuter';
     const details = data.get('message')?.toString().trim() || 'Bonjour Hamza, discutons de notre projet.';
 
     const structuredMessage = [
@@ -414,7 +413,6 @@ function initWhatsAppBrief() {
       `🎥 *Prestation :* ${service}`,
       `📍 *Lieu de tournage :* ${location}`,
       `⏱️ *Échéance souhaitée :* ${timeline}`,
-      `💰 *Budget indicatif :* ${budget}`,
       '━━━━━━━━━━━━━━━━━━━━',
       '📝 *Détails du projet :*',
       details,
