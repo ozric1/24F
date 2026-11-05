@@ -1,0 +1,21 @@
+24FPS PRODUCTION — MAQUETTE POUR LE DÉVELOPPEUR
+
+Ouvrir index.html dans un navigateur (ordinateur conseillé).
+Le dossier assets doit rester à côté du fichier index.html.
+Le HTML contient les styles CSS et le JavaScript, entièrement modifiables.
+Une connexion Internet est nécessaire pour les images d’illustration, les polices et les liens externes.
+
+Inclus : design responsive, équipe et spécialités, couverture de tout le Maroc, matériel, logo original, lien Instagram et formulaire de brief WhatsApp.
+Instagram : https://www.instagram.com/24_fps.h/
+Contact : +212 661 73 44 99
+
+À finaliser avec Hamza :
+- Remplacer les images d’illustration par ses réalisations autorisées.
+- Ajouter les vidéos et les photos réelles de l’équipe.
+- Renseigner LinkedIn (actuellement indiqué comme lien à renseigner).
+- Confirmer le matériel et les textes avant mise en ligne définitive.
+- Configurer le nom de domaine, l’hébergement et les métadonnées SEO définitives.
+- Vérifier l’affichage mobile, l’accessibilité et les liens.
+
+Le formulaire prépare un message WhatsApp ; il n’envoie rien automatiquement et ne dispose pas de serveur de collecte.
+Aucun compte, mot de passe, jeton, fichier Git ou configuration de publication n’est inclus.

@@ -1,0 +1,19 @@
+# OS Metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor & IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local Logs & Temps
+*.log
+temp_*
+node_modules/
+dist/
+.cache/
+.gemini/
+
