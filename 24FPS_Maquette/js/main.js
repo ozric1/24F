@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initPortfolioFilters();
   initVideoModal();
   initWhatsAppBrief();
+  initCustomSelects();
+  initCustomDatePicker();
 });
 
 /* --------------------------------------------------------------------------
@@ -424,3 +426,232 @@ function initWhatsAppBrief() {
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   });
 }
+
+/* --------------------------------------------------------------------------
+   07. Custom Cinematic Select Dropdowns (No generic white browser popups)
+   -------------------------------------------------------------------------- */
+function initCustomSelects() {
+  const customSelects = document.querySelectorAll('.custom-select-field');
+
+  customSelects.forEach(selectField => {
+    const trigger = selectField.querySelector('.custom-select-trigger');
+    const valueDisplay = selectField.querySelector('.custom-select-value');
+    const hiddenInput = selectField.querySelector('input[type="hidden"]');
+    const options = selectField.querySelectorAll('.custom-option');
+
+    if (!trigger || !options.length) return;
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = selectField.classList.contains('open');
+      closeAllPopovers();
+      if (!isOpen) {
+        selectField.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    options.forEach(option => {
+      option.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const value = option.dataset.value;
+        const text = option.querySelector('span')?.textContent || value;
+
+        if (hiddenInput) hiddenInput.value = value;
+        if (valueDisplay) valueDisplay.textContent = text;
+
+        options.forEach(opt => {
+          opt.classList.remove('selected');
+          opt.setAttribute('aria-selected', 'false');
+        });
+        option.classList.add('selected');
+        option.setAttribute('aria-selected', 'true');
+
+        selectField.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        trigger.click();
+      } else if (e.key === 'Escape') {
+        selectField.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   08. Custom Cinematic Calendar Date Picker (No past dates, up to date)
+   -------------------------------------------------------------------------- */
+function initCustomDatePicker() {
+  const datepickerField = document.querySelector('.custom-datepicker-field');
+  if (!datepickerField) return;
+
+  const trigger = datepickerField.querySelector('.custom-datepicker-trigger');
+  const valueDisplay = datepickerField.querySelector('.custom-datepicker-value');
+  const hiddenInput = datepickerField.querySelector('#field-timeline');
+  const monthYearDisplay = document.getElementById('cal-month-year');
+  const daysGrid = document.getElementById('calendar-days');
+  const prevBtn = document.getElementById('cal-prev');
+  const nextBtn = document.getElementById('cal-next');
+  const todayBtn = document.getElementById('cal-today-btn');
+
+  const monthNames = [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+  ];
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  let viewYear = today.getFullYear();
+  let viewMonth = today.getMonth();
+  let selectedDate = null;
+
+  function renderCalendar(year, month) {
+    if (!daysGrid || !monthYearDisplay) return;
+
+    monthYearDisplay.textContent = `${monthNames[month]} ${year}`;
+
+    // Disable prev button if viewing current month and year
+    if (prevBtn) {
+      const isCurrentMonth = (year === today.getFullYear() && month === today.getMonth());
+      prevBtn.disabled = isCurrentMonth;
+    }
+
+    daysGrid.innerHTML = '';
+
+    // First day of month (0 = Sun, 1 = Mon, ..., 6 = Sat)
+    const firstDay = new Date(year, month, 1);
+    // Convert to Monday = 0, ..., Sunday = 6
+    let startingDay = (firstDay.getDay() + 6) % 7;
+
+    // Days in current month
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Empty padding slots
+    for (let i = 0; i < startingDay; i++) {
+      const emptyCell = document.createElement('div');
+      emptyCell.className = 'cal-day empty';
+      daysGrid.appendChild(emptyCell);
+    }
+
+    // Days of current month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayDate = new Date(year, month, day);
+      const dayBtn = document.createElement('button');
+      dayBtn.type = 'button';
+      dayBtn.className = 'cal-day';
+      dayBtn.textContent = day.toString();
+
+      // Check if date is in the past
+      if (dayDate < today) {
+        dayBtn.classList.add('disabled');
+        dayBtn.disabled = true;
+        dayBtn.setAttribute('aria-disabled', 'true');
+      } else {
+        // Today badge
+        if (dayDate.getTime() === today.getTime()) {
+          dayBtn.classList.add('today');
+        }
+
+        // Selected badge
+        if (selectedDate && dayDate.getTime() === selectedDate.getTime()) {
+          dayBtn.classList.add('selected');
+        }
+
+        dayBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectDate(dayDate);
+        });
+      }
+
+      daysGrid.appendChild(dayBtn);
+    }
+  }
+
+  function selectDate(date) {
+    selectedDate = date;
+    const day = date.getDate();
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+    const formatted = `${day} ${month} ${year}`;
+
+    if (hiddenInput) hiddenInput.value = formatted;
+    if (valueDisplay) {
+      valueDisplay.textContent = formatted;
+      valueDisplay.classList.remove('placeholder');
+    }
+
+    datepickerField.classList.remove('open');
+    trigger.setAttribute('aria-expanded', 'false');
+    renderCalendar(viewYear, viewMonth);
+  }
+
+  // Toggle calendar on trigger click
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = datepickerField.classList.contains('open');
+    closeAllPopovers();
+    if (!isOpen) {
+      datepickerField.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      renderCalendar(viewYear, viewMonth);
+    }
+  });
+
+  // Prev Month button
+  prevBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (viewYear === today.getFullYear() && viewMonth === today.getMonth()) {
+      return;
+    }
+    viewMonth--;
+    if (viewMonth < 0) {
+      viewMonth = 11;
+      viewYear--;
+    }
+    renderCalendar(viewYear, viewMonth);
+  });
+
+  // Next Month button
+  nextBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    viewMonth++;
+    if (viewMonth > 11) {
+      viewMonth = 0;
+      viewYear++;
+    }
+    renderCalendar(viewYear, viewMonth);
+  });
+
+  // Today button
+  todayBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    viewYear = today.getFullYear();
+    viewMonth = today.getMonth();
+    selectDate(new Date(today));
+  });
+
+  // Initial render
+  renderCalendar(viewYear, viewMonth);
+}
+
+// Global closer for all floating popovers
+function closeAllPopovers() {
+  document.querySelectorAll('.custom-select-field.open, .custom-datepicker-field.open').forEach(el => {
+    el.classList.remove('open');
+    const trigger = el.querySelector('[aria-expanded]');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  });
+}
+
+document.addEventListener('click', closeAllPopovers);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAllPopovers();
+});
+

@@ -1469,6 +1469,346 @@ h2 {
   color: rgba(60, 25, 10, 0.65);
 }
 
+.field-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  margin-bottom: 2px;
+  font-family: var(--font-mono);
+  color: #3b190c;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Custom Cinematic Dropdown (Cohesive dark popup, no generic white select)
+   -------------------------------------------------------------------------- */
+.custom-select-field {
+  position: relative;
+  user-select: none;
+}
+
+.custom-select-field.open {
+  z-index: 60;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  border-bottom: 1.5px solid rgba(60, 25, 10, 0.4);
+  padding: 12px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: #121411;
+  transition: border-color var(--transition-fast);
+}
+
+.custom-select-trigger:focus-visible,
+.custom-select-field.open .custom-select-trigger {
+  border-bottom-color: #000;
+  outline: none;
+}
+
+.custom-select-arrow {
+  font-size: 13px;
+  color: #3b190c;
+  display: inline-block;
+  transition: transform var(--transition-smooth);
+}
+
+.custom-select-field.open .custom-select-arrow {
+  transform: rotate(180deg);
+}
+
+.custom-select-options {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #141613;
+  border: 1px solid rgba(255, 121, 0, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  border-radius: 4px;
+  padding: 6px 0;
+  margin: 0;
+  list-style: none;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s var(--ease-cinema), visibility 0.25s;
+  max-height: 270px;
+  overflow-y: auto;
+}
+
+.custom-select-field.open .custom-select-options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.custom-option {
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: #f5f3ec;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.custom-option:hover {
+  background: var(--orange);
+  color: #0c0d0c;
+  font-weight: 600;
+}
+
+.custom-option.selected {
+  background: rgba(255, 121, 0, 0.15);
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.custom-option:hover.selected {
+  background: var(--orange);
+  color: #0c0d0c;
+}
+
+.custom-option .check-mark {
+  opacity: 0;
+  font-size: 13px;
+  color: var(--orange);
+}
+
+.custom-option.selected .check-mark {
+  opacity: 1;
+}
+
+.custom-option:hover .check-mark {
+  color: #0c0d0c;
+}
+
+/* --------------------------------------------------------------------------
+   Custom Cinematic Calendar Date Picker (Logical, up-to-date, no past dates)
+   -------------------------------------------------------------------------- */
+.custom-datepicker-field {
+  position: relative;
+  user-select: none;
+}
+
+.custom-datepicker-field.open {
+  z-index: 60;
+}
+
+.custom-datepicker-trigger {
+  width: 100%;
+  border-bottom: 1.5px solid rgba(60, 25, 10, 0.4);
+  padding: 12px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: #121411;
+  transition: border-color var(--transition-fast);
+}
+
+.custom-datepicker-trigger:focus-visible,
+.custom-datepicker-field.open .custom-datepicker-trigger {
+  border-bottom-color: #000;
+  outline: none;
+}
+
+.custom-datepicker-value.placeholder {
+  color: rgba(60, 25, 10, 0.65);
+}
+
+.custom-datepicker-icon {
+  font-size: 16px;
+  color: #3b190c;
+  transition: transform var(--transition-smooth);
+}
+
+.custom-datepicker-field.open .custom-datepicker-icon {
+  transform: scale(1.15);
+}
+
+.custom-calendar-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  max-width: 360px;
+  background: #141613;
+  border: 1px solid rgba(255, 121, 0, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+  border-radius: 6px;
+  padding: 20px;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s var(--ease-cinema), visibility 0.25s;
+}
+
+.custom-datepicker-field.open .custom-calendar-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cal-month-year {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.cal-nav {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--text-primary);
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: all var(--transition-fast);
+}
+
+.cal-nav:hover:not(:disabled) {
+  background: var(--orange);
+  color: #0c0d0c;
+  border-color: var(--orange);
+}
+
+.cal-nav:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--grey);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.calendar-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-day {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-primary);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: all var(--transition-fast);
+}
+
+.cal-day.empty {
+  cursor: default;
+  pointer-events: none;
+}
+
+.cal-day:hover:not(.disabled):not(.empty) {
+  background: rgba(255, 121, 0, 0.22);
+  color: var(--orange);
+}
+
+.cal-day.disabled {
+  color: rgba(255, 255, 255, 0.16);
+  cursor: not-allowed;
+  pointer-events: none;
+  text-decoration: line-through;
+}
+
+.cal-day.today {
+  border: 1px solid var(--orange);
+  color: var(--orange);
+}
+
+.cal-day.selected {
+  background: var(--orange) !important;
+  color: #0c0d0c !important;
+  font-weight: 700;
+  box-shadow: 0 0 14px var(--orange-glow);
+}
+
+.calendar-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cal-note {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: var(--grey);
+}
+
+.cal-today-btn {
+  background: transparent;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 5px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+}
+
+.cal-today-btn:hover {
+  background: var(--orange);
+  color: #0c0d0c;
+}
+
+
 .contact button[type="submit"] {
   border: 0;
   background: #10120e;

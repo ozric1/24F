@@ -873,38 +873,114 @@
         </div>
 
         <div class="form-grid">
-          <label class="field">
-            TYPE DE PROJET *
-            <select name="service" required>
-              <option value="Production vidéo & Publicité">Production vidéo & Publicité</option>
-              <option value="Direction de la Photographie">Direction de la Photographie</option>
-              <option value="Prises de vue Aériennes (Drone)">Prises de vue Aériennes (Drone)</option>
-              <option value="Aftermovie & Événementiel">Aftermovie & Événementiel</option>
-              <option value="Pack Social Media & Reels">Pack Social Media & Reels</option>
-              <option value="Pack Complet (Vidéo + Photo + Drone)">Pack Complet (Vidéo + Photo + Drone)</option>
-            </select>
-          </label>
+          <div class="field custom-select-field" data-name="service">
+            <span class="field-label">TYPE DE PROJET *</span>
+            <input type="hidden" name="service" id="field-service" value="Production vidéo & Publicité" required>
+            <div class="custom-select-trigger" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="service-options">
+              <span class="custom-select-value">Production vidéo & Publicité</span>
+              <span class="custom-select-arrow">▾</span>
+            </div>
+            <ul class="custom-select-options" id="service-options" role="listbox">
+              <li class="custom-option selected" data-value="Production vidéo & Publicité" role="option" aria-selected="true">
+                <span>Production vidéo & Publicité</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Direction de la Photographie" role="option" aria-selected="false">
+                <span>Direction de la Photographie</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Prises de vue Aériennes (Drone)" role="option" aria-selected="false">
+                <span>Prises de vue Aériennes (Drone)</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Aftermovie & Événementiel" role="option" aria-selected="false">
+                <span>Aftermovie & Événementiel</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Pack Social Media & Reels" role="option" aria-selected="false">
+                <span>Pack Social Media & Reels</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Pack Complet (Vidéo + Photo + Drone)" role="option" aria-selected="false">
+                <span>Pack Complet (Vidéo + Photo + Drone)</span>
+                <span class="check-mark">✓</span>
+              </li>
+            </ul>
+          </div>
 
-          <label class="field">
-            VILLE OU LIEU DE TOURNAGE
-            <select name="location">
-              <option value="Casablanca">Casablanca</option>
-              <option value="Rabat">Rabat</option>
-              <option value="Marrakech">Marrakech</option>
-              <option value="Mohammedia">Mohammedia</option>
-              <option value="Tanger">Tanger</option>
-              <option value="Agadir">Agadir</option>
-              <option value="Fès / Meknès">Fès / Meknès</option>
-              <option value="Ouarzazate / Sud">Ouarzazate / Sud</option>
-              <option value="Autre région du Maroc">Autre région du Maroc</option>
-            </select>
-          </label>
+          <div class="field custom-select-field" data-name="location">
+            <span class="field-label">VILLE OU LIEU DE TOURNAGE</span>
+            <input type="hidden" name="location" id="field-location" value="Casablanca">
+            <div class="custom-select-trigger" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="location-options">
+              <span class="custom-select-value">Casablanca</span>
+              <span class="custom-select-arrow">▾</span>
+            </div>
+            <ul class="custom-select-options" id="location-options" role="listbox">
+              <li class="custom-option selected" data-value="Casablanca" role="option" aria-selected="true">
+                <span>Casablanca</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Rabat" role="option" aria-selected="false">
+                <span>Rabat</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Marrakech" role="option" aria-selected="false">
+                <span>Marrakech</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Mohammedia" role="option" aria-selected="false">
+                <span>Mohammedia</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Tanger" role="option" aria-selected="false">
+                <span>Tanger</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Agadir" role="option" aria-selected="false">
+                <span>Agadir</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Fès / Meknès" role="option" aria-selected="false">
+                <span>Fès / Meknès</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Ouarzazate / Sud" role="option" aria-selected="false">
+                <span>Ouarzazate / Sud</span>
+                <span class="check-mark">✓</span>
+              </li>
+              <li class="custom-option" data-value="Autre région du Maroc" role="option" aria-selected="false">
+                <span>Autre région du Maroc</span>
+                <span class="check-mark">✓</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <label class="field">
-          ÉCHÉANCE SOUHAITÉE
-          <input type="text" name="timeline" placeholder="Ex. Mois prochain / Date précise">
-        </label>
+        <div class="field custom-datepicker-field">
+          <span class="field-label">ÉCHÉANCE SOUHAITÉE (DATE DU PROJET)</span>
+          <input type="hidden" name="timeline" id="field-timeline" value="">
+          <div class="custom-datepicker-trigger" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Choisir une date sur le calendrier">
+            <span class="custom-datepicker-value placeholder">Choisir une date sur le calendrier...</span>
+            <span class="custom-datepicker-icon">📅</span>
+          </div>
+          <div class="custom-calendar-popover" role="dialog" aria-label="Calendrier de sélection de date" aria-hidden="true">
+            <div class="calendar-header">
+              <button type="button" class="cal-nav cal-prev" id="cal-prev" aria-label="Mois précédent">‹</button>
+              <div class="cal-month-year" id="cal-month-year">Novembre 2026</div>
+              <button type="button" class="cal-nav cal-next" id="cal-next" aria-label="Mois suivant">›</button>
+            </div>
+            <div class="calendar-weekdays">
+              <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
+            </div>
+            <div class="calendar-days-grid" id="calendar-days">
+              <!-- Dynamiquement généré par JavaScript -->
+            </div>
+            <div class="calendar-footer">
+              <span class="cal-note">// Dates passées désactivées</span>
+              <button type="button" class="cal-today-btn" id="cal-today-btn">Aujourd'hui</button>
+            </div>
+          </div>
+        </div>
 
         <label class="field">
           PARLEZ-NOUS DE VOTRE PROJET *
