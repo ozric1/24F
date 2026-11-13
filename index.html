@@ -85,10 +85,32 @@
 
     <!-- Header Actions -->
     <div class="nav-right">
-      <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false" title="Activer les retours sonores">
-        🔇
-      </button>
-      <a class="cta orange" href="#contact">
+      <!-- Language Switcher -->
+      <div class="lang-switch-container" id="lang-switch-container">
+        <button class="lang-toggle-btn" id="lang-toggle-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-label="Changer de langue / Change language" title="Langue / Language">
+          <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="lang-code-indicator" id="lang-code-indicator">FR</span>
+        </button>
+
+        <div class="lang-dropdown-menu" id="lang-dropdown-menu" role="menu">
+          <button type="button" class="lang-menu-item active" data-lang="fr" role="menuitem">
+            <span class="lang-flag">🇫🇷</span>
+            <span class="lang-title">Français</span>
+            <span class="lang-active-check">✓</span>
+          </button>
+          <button type="button" class="lang-menu-item" data-lang="en" role="menuitem">
+            <span class="lang-flag">🇬🇧</span>
+            <span class="lang-title">English</span>
+            <span class="lang-active-check">✓</span>
+          </button>
+        </div>
+      </div>
+
+      <a class="cta orange" href="#contact" id="nav-cta-btn">
         Devis rapide <span class="arrow">↗</span>
       </a>
       <button class="menu" aria-expanded="false" aria-controls="nav">
@@ -987,14 +1009,10 @@
           <textarea name="message" required placeholder="Décrivez votre idée, le style recherché, les livrables souhaités..."></textarea>
         </label>
 
-        <button type="submit">
+        <button type="submit" id="brief-submit-btn">
           <span>Envoyer mon brief sur WhatsApp</span>
           <span class="arrow">↗</span>
         </button>
-
-        <p class="form-note">
-          ℹ️ WhatsApp s’ouvrira instantanément avec votre brief structuré et prérempli. Vous conservez la possibilité de relire et modifier le texte avant l’envoi.
-        </p>
       </form>
     </section>
 
