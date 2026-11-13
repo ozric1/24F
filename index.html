@@ -21,6 +21,14 @@
   <meta name="twitter:description" content="Films publicitaires, documentaires et direction de l’image partout au Maroc.">
   <meta name="theme-color" content="#101110">
 
+  <!-- High Performance Video Preconnects & Asset Preload -->
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="preload" as="image" href="assets/elegance-motion-cover.webp" type="image/webp">
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/24fps-logo.png">
 
@@ -361,14 +369,21 @@
         <div class="projects">
           <!-- Project 1 -->
           <article class="project" data-type="brand" data-id="brand-1">
-            <div class="picture">
-              <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=85" alt="Tournage cinéma d’un film de marque par 24FPS" loading="lazy">
+            <div class="picture" id="picture-brand-1">
+              <picture>
+                <source srcset="assets/elegance-motion-cover.webp" type="image/webp">
+                <img src="assets/elegance-motion-cover.jpg" alt="L’Élégance du Mouvement — Salon du Cheval El Jadida par 24FPS" loading="eager" fetchpriority="high" width="1280" height="650">
+              </picture>
               <div class="picture-badges">
                 <span class="tag">FILM DE MARQUE</span>
-                <span class="duration-tag">01:45 · 2.39:1</span>
+                <span class="duration-tag">00:47 · 4K UHD</span>
               </div>
               <div class="play-hover-overlay">
-                <span class="play-action-btn">▶</span>
+                <button type="button" class="play-action-btn" aria-label="Lancer la vidéo L’Élégance du Mouvement" title="Regarder la vidéo (00:47)">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                  </svg>
+                </button>
               </div>
             </div>
             <div class="project-info">
@@ -390,7 +405,11 @@
                 <span class="duration-tag">02:30 · 16:9 UHD</span>
               </div>
               <div class="play-hover-overlay">
-                <span class="play-action-btn">▶</span>
+                <button type="button" class="play-action-btn" aria-label="Lancer la vidéo" title="Regarder la vidéo">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                  </svg>
+                </button>
               </div>
             </div>
             <div class="project-info">
@@ -412,7 +431,11 @@
                 <span class="duration-tag">02:10 · PRORES</span>
               </div>
               <div class="play-hover-overlay">
-                <span class="play-action-btn">▶</span>
+                <button type="button" class="play-action-btn" aria-label="Lancer la vidéo" title="Regarder la vidéo">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                  </svg>
+                </button>
               </div>
             </div>
             <div class="project-info">
@@ -434,7 +457,11 @@
                 <span class="duration-tag">03:15 · 4K DCI</span>
               </div>
               <div class="play-hover-overlay">
-                <span class="play-action-btn">▶</span>
+                <button type="button" class="play-action-btn" aria-label="Lancer la vidéo" title="Regarder la vidéo">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                  </svg>
+                </button>
               </div>
             </div>
             <div class="project-info">
@@ -456,7 +483,11 @@
                 <span class="duration-tag">00:35 · 9:16 VERTICAL</span>
               </div>
               <div class="play-hover-overlay">
-                <span class="play-action-btn">▶</span>
+                <button type="button" class="play-action-btn" aria-label="Lancer la vidéo" title="Regarder la vidéo">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                  </svg>
+                </button>
               </div>
             </div>
             <div class="project-info">
@@ -478,7 +509,11 @@
                 <span class="duration-tag">05:40 · CINEMASCOPE</span>
               </div>
               <div class="play-hover-overlay">
-                <span class="play-action-btn">▶</span>
+                <button type="button" class="play-action-btn" aria-label="Lancer la vidéo" title="Regarder la vidéo">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                  </svg>
+                </button>
               </div>
             </div>
             <div class="project-info">
@@ -500,7 +535,11 @@
                 <span class="duration-tag">02:00 · 4K UHD</span>
               </div>
               <div class="play-hover-overlay">
-                <span class="play-action-btn">▶</span>
+                <button type="button" class="play-action-btn" aria-label="Lancer la vidéo" title="Regarder la vidéo">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                  </svg>
+                </button>
               </div>
             </div>
             <div class="project-info">
@@ -522,7 +561,11 @@
                 <span class="duration-tag">01:15 · 120 FPS</span>
               </div>
               <div class="play-hover-overlay">
-                <span class="play-action-btn">▶</span>
+                <button type="button" class="play-action-btn" aria-label="Lancer la vidéo" title="Regarder la vidéo">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                  </svg>
+                </button>
               </div>
             </div>
             <div class="project-info">

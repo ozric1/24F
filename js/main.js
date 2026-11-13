@@ -157,7 +157,7 @@ function initPortfolioFilters() {
 const PROJECT_DETAILS = {
   'brand-1': {
     title: {
-      fr: 'L’Élégance du Mouvement — Campagne Brand & Luxe',
+      fr: 'L’Élégance du Mouvement — Salon du Cheval',
       en: 'The Elegance of Motion — Luxury Brand Campaign'
     },
     client: {
@@ -170,14 +170,14 @@ const PROJECT_DETAILS = {
     },
     camera: 'Sony FX3 Cinema Line',
     optics: 'Sony G Master 24-70mm f/2.8 & 85mm f/1.4',
-    format: '4K DCI · 2.39:1 CinemaScope',
-    duration: '01:45 min',
+    format: '4K UHD · 2.39:1 CinemaScope',
+    duration: '00:47 min',
     year: '2026',
     description: {
-      fr: 'Une plongée intime dans l’artisanat d’exception et la haute joaillerie. Direction de la photographie pensée pour sublimer les matières dorées, le cuir et les reflets naturels de lumière sous le soleil de Casablanca.',
-      en: 'An intimate journey into rare craftsmanship and fine jewelry. Cinematography designed to sublimate golden textures, leather, and natural sun reflections in Casablanca.'
+      fr: 'Une captation cinématographique d’exception réalisée par 24FPS. Direction de la photographie pensée pour sublimer la noblesse, les matières dorées et le mouvement sous une lumière naturelle ciselée.',
+      en: 'Exceptional cinematic film produced by 24FPS. Cinematography crafted to capture noble movement, golden hues, and vibrant emotion in radiant natural light.'
     },
-    videoSrc: 'https://www.youtube-nocookie.com/embed/ScMzIvxBSi4?autoplay=1&mute=0&rel=0'
+    videoSrc: 'https://www.youtube-nocookie.com/embed/XCNdk9tg3UI?autoplay=1&mute=0&rel=0'
   },
   'event-1': {
     title: {
@@ -364,6 +364,9 @@ function initVideoModal() {
   if (!modal) return;
 
   function openProject(projectId) {
+    if (typeof closeBrand1Inline === 'function') {
+      closeBrand1Inline();
+    }
     currentModalProjectId = projectId;
     const data = PROJECT_DETAILS[projectId] || PROJECT_DETAILS['brand-1'];
     const lang = document.documentElement.lang === 'en' ? 'en' : 'fr';
@@ -415,9 +418,86 @@ function initVideoModal() {
     currentModalProjectId = null;
   }
 
+  // Handle Project 1 (The Elegance of Motion) Inline Embed & Fast Player
+  const brand1Card = document.querySelector('.project[data-id="brand-1"]');
+  const brand1Picture = document.getElementById('picture-brand-1');
+
+  function playBrand1Inline() {
+    if (!brand1Picture) return;
+    const lang = document.documentElement.lang === 'en' ? 'en' : 'fr';
+    const cinemaLabel = lang === 'en' ? 'Cinema Mode' : 'Mode Cinéma';
+    const closeLabel = lang === 'en' ? 'Close' : 'Fermer';
+
+    if (!brand1Picture.dataset.initialMarkup) {
+      brand1Picture.dataset.initialMarkup = brand1Picture.innerHTML;
+    }
+
+    brand1Picture.classList.add('video-playing');
+    brand1Picture.innerHTML = `
+      <iframe class="project-embed-iframe"
+              src="https://www.youtube-nocookie.com/embed/XCNdk9tg3UI?autoplay=1&mute=0&rel=0&playsinline=1&modestbranding=1" 
+              title="24FPS Production — Salon du Cheval El Jadida" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+      </iframe>
+      <div class="inline-video-controls">
+        <button type="button" class="inline-expand-btn" id="inline-expand-brand1" aria-label="${cinemaLabel}" title="${cinemaLabel}">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+          </svg>
+          <span class="btn-label-text">${cinemaLabel}</span>
+        </button>
+        <button type="button" class="inline-close-btn" id="inline-close-brand1" aria-label="${closeLabel}" title="${closeLabel}">✕</button>
+      </div>
+    `;
+
+    document.getElementById('inline-expand-brand1')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeBrand1Inline();
+      openProject('brand-1');
+    });
+
+    document.getElementById('inline-close-brand1')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeBrand1Inline();
+    });
+  }
+
+  function closeBrand1Inline() {
+    if (brand1Picture && brand1Picture.dataset.initialMarkup && brand1Picture.classList.contains('video-playing')) {
+      brand1Picture.innerHTML = brand1Picture.dataset.initialMarkup;
+      brand1Picture.classList.remove('video-playing');
+      attachBrand1PlayListener();
+    }
+  }
+
+  function attachBrand1PlayListener() {
+    const playBtn = brand1Picture?.querySelector('.play-action-btn');
+    playBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playBrand1Inline();
+    });
+  }
+
+  attachBrand1PlayListener();
+
+  // If user clicks on picture background outside button, play inline
+  brand1Picture?.addEventListener('click', (e) => {
+    if (!brand1Picture.classList.contains('video-playing')) {
+      e.stopPropagation();
+      playBrand1Inline();
+    }
+  });
+
   // Open from cards
   document.querySelectorAll('.project[data-id]').forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      if (card.dataset.id === 'brand-1') {
+        // If clicked inside picture (handled by inline player), don't trigger modal
+        if (e.target.closest('#picture-brand-1')) {
+          return;
+        }
+      }
       openProject(card.dataset.id);
     });
   });
@@ -445,6 +525,11 @@ function initVideoModal() {
   window.refreshModalLanguage = function() {
     if (modal.classList.contains('open') && currentModalProjectId) {
       openProject(currentModalProjectId);
+    }
+    const expandBtnLabel = document.querySelector('#inline-expand-brand1 .btn-label-text');
+    if (expandBtnLabel) {
+      const isEn = document.documentElement.lang === 'en';
+      expandBtnLabel.textContent = isEn ? 'Cinema Mode' : 'Mode Cinéma';
     }
   };
 }
@@ -1166,6 +1251,8 @@ function initLanguageSwitcher() {
     setHtml('.project[data-id="event-2"] h3', p7.title[target]);
     setHtml('.project[data-id="brand-3"] h3', p8.title[target]);
 
+    setHtml('.project[data-id="brand-1"] .duration-tag', '00:47 · 4K UHD');
+
     if (target === 'en') {
       setHtml('.project[data-id="brand-1"] .tag', 'BRAND FILM');
       setHtml('.project[data-id="event-1"] .tag', 'EVENTS');
@@ -1175,6 +1262,8 @@ function initLanguageSwitcher() {
       setHtml('.project[data-id="life-2"] .tag', 'SHORT FILM');
       setHtml('.project[data-id="event-2"] .tag', 'GALA EVENT');
       setHtml('.project[data-id="brand-3"] .tag', 'PRODUCT COMMERCIAL');
+      const expandBtn = document.querySelector('#inline-expand-brand1 .btn-label-text');
+      if (expandBtn) expandBtn.textContent = 'Cinema Mode';
     } else {
       setHtml('.project[data-id="brand-1"] .tag', 'FILM DE MARQUE');
       setHtml('.project[data-id="event-1"] .tag', 'ÉVÉNEMENTIEL');
@@ -1184,6 +1273,8 @@ function initLanguageSwitcher() {
       setHtml('.project[data-id="life-2"] .tag', 'COURT-MÉTRAGE');
       setHtml('.project[data-id="event-2"] .tag', 'CÉRÉMONIE');
       setHtml('.project[data-id="brand-3"] .tag', 'PUBLICITÉ PRODUIT');
+      const expandBtn = document.querySelector('#inline-expand-brand1 .btn-label-text');
+      if (expandBtn) expandBtn.textContent = 'Mode Cinéma';
     }
 
     // 6. Services Section
